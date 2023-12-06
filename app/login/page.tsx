@@ -30,22 +30,42 @@ export default function LoginPage() {
   }, []);
 
   return (
-    <form onSubmit={LoginHandler}>
-      {/* Email input */}
-      <label htmlFor="email">Email</label>
-      <input type="email" name="email" required minLength={2} maxLength={320} />
-      {/* Password input */}
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        required
-        minLength={6}
-        maxLength={256}
-      />
-      {/* Login button */}
-      <button type="submit">Login</button>
-    </form>
+    <section className="flex-1 w-1/2 rounded-sm rounded-md">
+      <form
+        className="flex flex-col justify-center p-12 w-100 h-full"
+        onSubmit={LoginHandler}
+      >
+        {/* Email input */}
+        {/* <label htmlFor="email">Email</label> */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+          minLength={2}
+          maxLength={320}
+          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
+        />
+        {/* Password input */}
+        {/* <label htmlFor="password">Password</label> */}
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+          minLength={6}
+          maxLength={256}
+          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
+        />
+        {/* Login button */}
+        <button
+          type="submit"
+          className="bg-rose-500 hover:bg-opacity-80 p-2 mt-2 rounded-md text-white text-sm text-center shadow-lg"
+        >
+          Login
+        </button>
+      </form>
+    </section>
   );
 }
 

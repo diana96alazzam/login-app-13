@@ -49,55 +49,73 @@ export default function RegisterPage() {
   );
 
   return (
-    <form onSubmit={RegisterHandler}>
-      {/* Username input */}
-      <label htmlFor="user_name">Username</label>
-      <input
-        type="user_name"
-        name="user_name"
-        required
-        minLength={2}
-        maxLength={16}
-        onChange={UpdateFormDataHandler}
-      />
-      {/* Email input */}
-      <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        name="email"
-        required
-        minLength={2}
-        maxLength={320}
-        onChange={UpdateFormDataHandler}
-      />
-      {/* Password input */}
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        required
-        minLength={6}
-        maxLength={256}
-        onChange={UpdateFormDataHandler}
-        pattern={
-          formData.confirm_password
-            ? `^${formData.confirm_password}$`
-            : undefined
-        }
-      />
-      {/* Confirm password input */}
-      <label htmlFor="confirm_password">Confirm password</label>
-      <input
-        type="password"
-        name="confirm_password"
-        required
-        minLength={6}
-        maxLength={256}
-        onChange={UpdateFormDataHandler}
-        pattern={formData.password ? `^${formData.password}$` : undefined}
-      />
-      {/* Register button */}
-      <button type="submit">Register</button>
-    </form>
+    <section className="flex-1 w-1/2 rounded-sm rounded-md">
+      <form
+        className="flex flex-col justify-center p-12 w-100 h-full"
+        onSubmit={RegisterHandler}
+      >
+        {/* Username input */}
+        {/* <label htmlFor="user_name">Username</label> */}
+        <input
+          type="user_name"
+          name="user_name"
+          placeholder="Username"
+          required
+          minLength={2}
+          maxLength={16}
+          onChange={UpdateFormDataHandler}
+          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
+        />
+        {/* Email input */}
+        {/* <label htmlFor="email">Email</label> */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+          minLength={2}
+          maxLength={320}
+          onChange={UpdateFormDataHandler}
+          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
+        />
+        {/* Password input */}
+        {/* <label htmlFor="password">Password</label> */}
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+          minLength={6}
+          maxLength={256}
+          onChange={UpdateFormDataHandler}
+          pattern={
+            formData.confirm_password
+              ? `^${formData.confirm_password}$`
+              : undefined
+          }
+          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
+        />
+        {/* Confirm password input */}
+        {/* <label htmlFor="confirm_password">Confirm password</label> */}
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Confirm password"
+          required
+          minLength={6}
+          maxLength={256}
+          onChange={UpdateFormDataHandler}
+          pattern={formData.password ? `^${formData.password}$` : undefined}
+          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
+        />
+        {/* Register button */}
+        <button
+          type="submit"
+          className="bg-rose-500 hover:bg-opacity-80 p-2 mt-2 rounded-md text-white text-sm text-center shadow-lg"
+        >
+          Register
+        </button>
+      </form>
+    </section>
   );
 }
