@@ -1,7 +1,7 @@
-import connectMongoDB from "../../../../mongodb_config/connect_db";
-import User from "../../../../mongodb_config/models/user";
+import connectMongoDB from "../../../lib/mongodb/connect_db";
+import User from "../../../lib/mongodb/models/user";
 import { NextResponse } from "next/server";
-import { mongodb_codes } from "../../../../mongodb_config/mongodb_codes";
+import { mongodb_codes } from "../../../lib/mongodb/mongodb_codes";
 
 /**
  * Post handler to register user in the DB.

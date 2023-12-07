@@ -1,7 +1,9 @@
-import connectMongoDB from "../../../../mongodb_config/connect_db";
-import User from "../../../../mongodb_config/models/user";
+import connectMongoDB from "../../../lib/mongodb/connect_db";
+import User from "../../../lib/mongodb/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { signJWT } from "@/lib/jwt/jwt";
+import { cookies } from "next/headers";
 
 /**
  * Post handler to login with user credentials.
@@ -22,25 +24,19 @@ export async function POST(request: {
       throw "Username or password don't match, please make sure to enter matching password and email.";
     }
 
+    const accessToken = await signJWT({ sub: user.email });
+
+    cookies().set("accessToken", accessToken, { secure: true });
+
     return NextResponse.json(
       {
         message: "Logged in successfully!",
+        accessToken,
       },
       {
         status: 200,
       }
     );
-
-    // TODO: Check jwt token
-    // // create a jwt token that is valid for 7 days
-    // const token = jwt.sign({ sub: user.id }, serverRuntimeConfig.secret, {
-    //   expiresIn: "7d",
-    // });
-
-    // return {
-    //   ...user.toJSON(),
-    //   token,
-    // };
   } catch (error) {
     return NextResponse.json(
       {

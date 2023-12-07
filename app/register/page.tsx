@@ -1,16 +1,26 @@
 "use client";
+import { Input } from "@/components/input";
+import { Spinner } from "@/components/spinner";
+import { SubmitButton } from "@/components/submit_button";
 import { useState, useCallback, ChangeEvent, FormEvent } from "react";
 
 /**
  * Register page component.
  */
 export default function RegisterPage() {
+  /**
+   * State used to store register form data.
+   */
   const [formData, setFormData] = useState({
     user_name: "",
     email: "",
     password: "",
     confirm_password: "",
   });
+
+  /**
+   * State used to track loading for form.
+   */
   const [isLoading, setIsLoading] = useState(false);
 
   /**
@@ -32,7 +42,7 @@ export default function RegisterPage() {
 
       setIsLoading(true);
 
-      const results = await fetch("/api/user/register", {
+      const results = await fetch("/api/register", {
         method: "post",
         body: JSON.stringify(formData),
       });
@@ -40,9 +50,9 @@ export default function RegisterPage() {
       setIsLoading(false);
 
       if (results.status === 201) {
-        console.log("User registered successfully!");
+        alert("User registered successfully!");
       } else {
-        console.log("Error while registering user!");
+        alert("Error while registering user!");
       }
     },
     [formData]
@@ -50,72 +60,54 @@ export default function RegisterPage() {
 
   return (
     <section className="flex-1 w-1/2 rounded-sm rounded-md">
-      <form
-        className="flex flex-col justify-center p-12 w-100 h-full"
-        onSubmit={RegisterHandler}
-      >
-        {/* Username input */}
-        {/* <label htmlFor="user_name">Username</label> */}
-        <input
-          type="user_name"
-          name="user_name"
-          placeholder="Username"
-          required
-          minLength={2}
-          maxLength={16}
-          onChange={UpdateFormDataHandler}
-          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
-        />
-        {/* Email input */}
-        {/* <label htmlFor="email">Email</label> */}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          minLength={2}
-          maxLength={320}
-          onChange={UpdateFormDataHandler}
-          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
-        />
-        {/* Password input */}
-        {/* <label htmlFor="password">Password</label> */}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          minLength={6}
-          maxLength={256}
-          onChange={UpdateFormDataHandler}
-          pattern={
-            formData.confirm_password
-              ? `^${formData.confirm_password}$`
-              : undefined
-          }
-          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
-        />
-        {/* Confirm password input */}
-        {/* <label htmlFor="confirm_password">Confirm password</label> */}
-        <input
-          type="password"
-          name="confirm_password"
-          placeholder="Confirm password"
-          required
-          minLength={6}
-          maxLength={256}
-          onChange={UpdateFormDataHandler}
-          pattern={formData.password ? `^${formData.password}$` : undefined}
-          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
-        />
-        {/* Register button */}
-        <button
-          type="submit"
-          className="bg-rose-500 hover:bg-opacity-80 p-2 mt-2 rounded-md text-white text-sm text-center shadow-lg"
+      <Spinner isLoading={isLoading} />
+      {!isLoading && (
+        <form
+          className="flex flex-col justify-center p-12 w-full h-full"
+          onSubmit={RegisterHandler}
         >
-          Register
-        </button>
-      </form>
+          {/* Username input */}
+          <Input
+            type="text"
+            name="user_name"
+            placeholder="Username"
+            required
+            onChange={UpdateFormDataHandler}
+          />
+          {/* Email input */}
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            onChange={UpdateFormDataHandler}
+          />
+          {/* Password input */}
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            onChange={UpdateFormDataHandler}
+            pattern={
+              formData.confirm_password
+                ? `^${formData.confirm_password}$`
+                : undefined
+            }
+          />
+          {/* Confirm password input */}
+          <Input
+            type="password"
+            name="confirm_password"
+            placeholder="Confirm password"
+            required
+            onChange={UpdateFormDataHandler}
+            pattern={formData.password ? `^${formData.password}$` : undefined}
+          />
+          {/* Register button */}
+          <SubmitButton text="Register" />
+        </form>
+      )}
     </section>
   );
 }

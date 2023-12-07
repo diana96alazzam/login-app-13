@@ -1,70 +1,72 @@
 "use client";
 import { useState, useCallback, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/spinner";
+import { SubmitButton } from "@/components/submit_button";
+import { Input } from "@/components/input";
 
 /**
  * Login page component
  */
 export default function LoginPage() {
+  const router = useRouter();
+
+  /**
+   * State used to track loading for form.
+   */
   const [isLoading, setIsLoading] = useState(false);
 
-  const LoginHandler = useCallback(async (e: LoginFormEvent) => {
-    e.preventDefault();
+  /**
+   * Login handler used to call login API.
+   */
+  const LoginHandler = useCallback(
+    async (e: LoginFormEvent) => {
+      e.preventDefault();
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    const results = await fetch("/api/user/login", {
-      method: "post",
-      body: JSON.stringify({
-        email: e.target.email.value,
-        password: e.target.password.value,
-      }),
-    });
+      const results = await fetch("/api/login", {
+        method: "post",
+        body: JSON.stringify({
+          email: e.target.email.value,
+          password: e.target.password.value,
+        }),
+      });
 
-    setIsLoading(false);
-
-    if (results.status === 201) {
-      console.log("User logged in successfully!");
-    } else {
-      console.log("Error while trying to login!");
-    }
-  }, []);
+      if (results.status === 200) {
+        const data = await results.json();
+        localStorage.setItem("accessToken", data.accessToken);
+        router.push("/profile");
+        router.refresh();
+      } else {
+        alert("Error while trying to login!");
+        setIsLoading(false);
+      }
+    },
+    [router]
+  );
 
   return (
     <section className="flex-1 w-1/2 rounded-sm rounded-md">
-      <form
-        className="flex flex-col justify-center p-12 w-100 h-full"
-        onSubmit={LoginHandler}
-      >
-        {/* Email input */}
-        {/* <label htmlFor="email">Email</label> */}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          minLength={2}
-          maxLength={320}
-          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
-        />
-        {/* Password input */}
-        {/* <label htmlFor="password">Password</label> */}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          minLength={6}
-          maxLength={256}
-          className="bg-gray-100 shadow-md rounded mb-4 p-2 text-sm"
-        />
-        {/* Login button */}
-        <button
-          type="submit"
-          className="bg-rose-500 hover:bg-opacity-80 p-2 mt-2 rounded-md text-white text-sm text-center shadow-lg"
+      <Spinner isLoading={isLoading} />
+      {!isLoading && (
+        <form
+          className="flex flex-col justify-center p-12 w-100 h-full"
+          onSubmit={LoginHandler}
         >
-          Login
-        </button>
-      </form>
+          {/* Email input */}
+          <Input type="email" name="email" placeholder="Email" required />
+          {/* Password input */}
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          {/* Login button */}
+          <SubmitButton text="Login" />
+        </form>
+      )}
     </section>
   );
 }
