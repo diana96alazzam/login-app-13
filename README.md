@@ -2,7 +2,14 @@
 
 This application is submitted as per the requiremnts of quality professionals company assignment.
 
-Check the following link for live preview.
+Check the following link for live preview:
+[Click here](https://login-app-13-hq61.vercel.app/)
+
+You can use these credentials to login directly without register:
+
+Email: `dianaazzam1@diana.com`
+
+Password: `testingpass123`
 
 ## Assignment goal
 The goal of this assignment is to create a web-based login API as a backend with a login form as a frontend.
