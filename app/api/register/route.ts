@@ -1,6 +1,6 @@
 import connectMongoDB from "../../../lib/mongodb/connect_db";
 import User from "../../../lib/mongodb/models/user";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { mongodb_codes } from "../../../lib/mongodb/mongodb_codes";
 
 /**
@@ -8,9 +8,7 @@ import { mongodb_codes } from "../../../lib/mongodb/mongodb_codes";
  * @param request
  * @returns API response
  */
-export async function POST(request: {
-  json: () => Record<"user_name" | "email" | "password", string>;
-}) {
+export async function POST(request: NextRequest) {
   try {
     const { user_name, email, password } = await request.json();
 
