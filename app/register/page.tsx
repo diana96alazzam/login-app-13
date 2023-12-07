@@ -1,4 +1,5 @@
 "use client";
+import { AsideLayout } from "@/components/aside_layout";
 import { Input } from "@/components/input";
 import { Spinner } from "@/components/spinner";
 import { SubmitButton } from "@/components/submit_button";
@@ -59,55 +60,58 @@ export default function RegisterPage() {
   );
 
   return (
-    <section className="flex-1 w-1/2 rounded-sm rounded-md">
-      <Spinner isLoading={isLoading} />
-      {!isLoading && (
-        <form
-          className="flex flex-col justify-center p-12 w-full h-full"
-          onSubmit={RegisterHandler}
-        >
-          {/* Username input */}
-          <Input
-            type="text"
-            name="user_name"
-            placeholder="Username"
-            required
-            onChange={UpdateFormDataHandler}
-          />
-          {/* Email input */}
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-            onChange={UpdateFormDataHandler}
-          />
-          {/* Password input */}
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            onChange={UpdateFormDataHandler}
-            pattern={
-              formData.confirm_password
-                ? `^${formData.confirm_password}$`
-                : undefined
-            }
-          />
-          {/* Confirm password input */}
-          <Input
-            type="password"
-            name="confirm_password"
-            placeholder="Confirm password"
-            required
-            onChange={UpdateFormDataHandler}
-            pattern={formData.password ? `^${formData.password}$` : undefined}
-          />
-          {/* Register button */}
-          <SubmitButton text="Register" />
-        </form>
-      )}
-    </section>
+    <>
+      <section className="flex-1 w-1/2 rounded-sm rounded-md">
+        <Spinner isLoading={isLoading} />
+        {!isLoading && (
+          <form
+            className="flex flex-col justify-center p-12 w-full h-full"
+            onSubmit={RegisterHandler}
+          >
+            {/* Username input */}
+            <Input
+              type="text"
+              name="user_name"
+              placeholder="Username"
+              required
+              onChange={UpdateFormDataHandler}
+            />
+            {/* Email input */}
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+              onChange={UpdateFormDataHandler}
+            />
+            {/* Password input */}
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              onChange={UpdateFormDataHandler}
+              pattern={
+                formData.confirm_password
+                  ? `^${formData.confirm_password}$`
+                  : undefined
+              }
+            />
+            {/* Confirm password input */}
+            <Input
+              type="password"
+              name="confirm_password"
+              placeholder="Confirm password"
+              required
+              onChange={UpdateFormDataHandler}
+              pattern={formData.password ? `^${formData.password}$` : undefined}
+            />
+            {/* Register button */}
+            <SubmitButton text="Register" />
+          </form>
+        )}
+      </section>
+      <AsideLayout />
+    </>
   );
 }

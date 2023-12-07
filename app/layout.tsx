@@ -24,11 +24,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} bg-rose-100 flex justify-center items-center h-screen`}
+        className={`${roboto.className} bg-green-100 flex justify-center items-center h-screen`}
       >
         <main className="flex bg-white shadow-2xl w-2/3 rounded-md">
           {children}
-          <AsideLayout />
         </main>
       </body>
     </html>

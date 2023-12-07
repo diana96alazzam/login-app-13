@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/spinner";
 import { SubmitButton } from "@/components/submit_button";
 import { Input } from "@/components/input";
+import { AsideLayout } from "@/components/aside_layout";
 
 /**
  * Login page component
@@ -47,27 +48,30 @@ export default function LoginPage() {
   );
 
   return (
-    <section className="flex-1 w-1/2 rounded-sm rounded-md">
-      <Spinner isLoading={isLoading} />
-      {!isLoading && (
-        <form
-          className="flex flex-col justify-center p-12 w-100 h-full"
-          onSubmit={LoginHandler}
-        >
-          {/* Email input */}
-          <Input type="email" name="email" placeholder="Email" required />
-          {/* Password input */}
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          {/* Login button */}
-          <SubmitButton text="Login" />
-        </form>
-      )}
-    </section>
+    <>
+      <section className="flex-1 w-1/2 rounded-sm rounded-md">
+        <Spinner isLoading={isLoading} />
+        {!isLoading && (
+          <form
+            className="flex flex-col justify-center p-12 w-100 h-full"
+            onSubmit={LoginHandler}
+          >
+            {/* Email input */}
+            <Input type="email" name="email" placeholder="Email" required />
+            {/* Password input */}
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            {/* Login button */}
+            <SubmitButton text="Login" />
+          </form>
+        )}
+      </section>
+      <AsideLayout />
+    </>
   );
 }
 
