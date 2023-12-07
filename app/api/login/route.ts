@@ -1,6 +1,6 @@
 import connectMongoDB from "../../../lib/mongodb/connect_db";
 import User from "../../../lib/mongodb/models/user";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { signJWT } from "@/lib/jwt/jwt";
 import { cookies } from "next/headers";
@@ -10,9 +10,7 @@ import { cookies } from "next/headers";
  * @param request
  * @returns API response
  */
-export async function POST(request: {
-  json: () => Record<"email" | "password", string>;
-}) {
+export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
 

@@ -1,6 +1,6 @@
 import connectMongoDB from "../../../lib/mongodb/connect_db";
 import User from "../../../lib/mongodb/models/user";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { decodeJwt } from "jose";
 import { cookies } from "next/headers";
 
@@ -9,7 +9,7 @@ import { cookies } from "next/headers";
  * @param request
  * @returns API response
  */
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     await connectMongoDB();
 
